@@ -43,18 +43,18 @@ ASCII_ART = r"""
 
 """
 
-# Configuration
+# configuration
 UDP_PORTS = [12345, 53, 123, 161, 500]  # UDP target ports (DNS, NTP, SNMP)
 TCP_PORTS = [80, 443, 22, 25, 8080]     # TCP target ports (HTTP, HTTPS, SSH, SMTP)
-PACKET_COUNT = 50  # Number of packets to send per target port
+PACKET_COUNT = 50  # number of packets to send per target port
 
 def detect_arp_spoof():
     """Detect ARP spoofing by monitoring ARP packets."""
     print("Checking for ARP spoofing...")
     arp_table = {}
-    packets = sniff(count=50, filter="arp", timeout=5)  # Capture ARP packets
+    packets = sniff(count=50, filter="arp", timeout=5)  
     for packet in packets:
-        if ARP in packet and packet[ARP].op == 2:  # Check for ARP reply
+        if ARP in packet and packet[ARP].op == 2: 
             mac = packet[ARP].hwsrc
             ip = packet[ARP].psrc
             if ip in arp_table and arp_table[ip] != mac:
